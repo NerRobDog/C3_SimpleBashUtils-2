@@ -16,7 +16,7 @@ typedef struct Flags {
     bool flag_v;
 } flag;
 
-static struct option options[] = { // библиотека getopt
+struct option options[] = { // библиотека getopt
         {"number-nonblank", 0, 0, 'b'},
         {"number", 0, 0, 'n'},
         {"squeeze-blank", 0, 0, 's'},
@@ -24,6 +24,6 @@ static struct option options[] = { // библиотека getopt
 };
 
 bool catFlags(int count, char *buffer[], flag *Flags);
-void printer(char *buffer[], flag *Flags);
+int printer(char *buffer[], flag *Flags);
 
 #endif // SRC_S21_CAT_H_
