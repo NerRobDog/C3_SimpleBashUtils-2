@@ -1,25 +1,10 @@
-#include <stdio.h>
-#include <unistd.h>
-#include <stdbool.h>
-#include <getopt.h>
+#include "s21_cat.h"
 
-typedef struct Flags {
-    bool flag_b;
-    bool flag_e;
-    bool flag_n;
-    bool flag_s;
-    bool flag_t;
-    bool flag_v;
-} flag;
-
-bool catFlags(int count, char *buffer[], flag *Flags);
-void printer(char *buffer[], flag *Flags);
-
-int main(int count, char *buffer[]) { //arg2[] - массив агрументов
+int main(int count, char *buffer[]) {
     struct Flags flag = {0, 0, 0, 0, 0, 0};
 
     catFlags(count, buffer, &flag);
-    // optind - возможно, хранит текущий индекс buffer
+    // optind - хранит текущий индекс buffer
     while(optind < count) {
         printer(buffer, &flag);
         optind++;
@@ -28,14 +13,10 @@ int main(int count, char *buffer[]) { //arg2[] - массив агрументо
 }
 
 bool catFlags(int count, char *buffer[], flag *Flags) {
-    int f; // что это?
+    int f;
+    struct option;
     const char* f_options = "bEnsTvet";
-    static struct option options[] = { // библиотека getopt
-            {"number-nonblank", 0, 0, 'b'},
-            {"number", 0, 0, 'n'},
-            {"squeeze-blank", 0, 0, 's'},
-            {0, 0, 0, 0},
-    };
+
     while ((f = getopt_long(count, buffer, f_options, options, NULL)) != -1) {
         switch (f) {
             case 'b':
@@ -68,7 +49,7 @@ bool catFlags(int count, char *buffer[], flag *Flags) {
                 printf("error\n");
                 break;
         }
-        if (Flags ->flag_b  && Flags ->flag_n ) Flags ->flag_n  = 0;
+        if (Flags ->flag_b  && Flags ->flag_n) Flags ->flag_n  = 0;
     }
     return 0;
 }
