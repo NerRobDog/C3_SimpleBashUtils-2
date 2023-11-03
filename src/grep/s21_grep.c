@@ -2,19 +2,21 @@
 
 int main(int count, char *buffer[]) {
     struct Flags flag = {0, 0, 0, 0, 0, 0};
-    char pattern_buffer[BUFFER_SIZE];
-    //
-    grepFlags(count, buffer, &flag);
+    char pattern_buffer[BUFFER_SIZE] = {0};
+
+    grepFlags(count, buffer, &flag, pattern_buffer);
     return 0;
 }
 
-bool grepFlags(int count, char *buffer[], flag *Flags) {
-    int flag_value;
+bool grepFlags(int count, char *buffer[], flag *Flags, char *pattern_buffer) {
+    bool flag_value; // будет ли работать с bool
+    char* f_options = "eivcln";
 
-    while ((flag_value = getopt_long(count, buffer, NULL)) != -1) {
+    while ((flag_value = getopt_long(count, buffer, f_options)) != -1) {
         switch (flag_value) {
             case 'e':
                 Flags -> flag_e = 1;
+                snprintf(pattern_buffer, BUFFER_SIZE, "%s", optarg)// getopt(3) external variables
                 break;
             case 'i':
                 Flags -> flag_i = 1;
@@ -50,6 +52,10 @@ bool grepFlags(int count, char *buffer[], flag *Flags) {
  *  -i инверсия
  *  -n номера строк
 */
+
+void grep_trigger() {
+
+}
 
 int printer(char *buffer[], flag *Flags) {
     FILE *file;

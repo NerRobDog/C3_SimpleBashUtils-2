@@ -9,7 +9,7 @@
 #include <getopt.h>
 #include "<regex.h>"
 
-#define int BUFFER_SIZE 4096;
+#define int BUFFER_SIZE 2048;
 
 typedef struct Flags {
     bool flag_e;
@@ -20,14 +20,9 @@ typedef struct Flags {
     bool flag_n;
 } flag;
 
-struct option options[] = { // библиотека getopt
-        {"number-nonblank", 0, 0, 'b'},
-        {"number", 0, 0, 'n'},
-        {"squeeze-blank", 0, 0, 's'},
-        {0, 0, 0, 0},
-};
-
-bool grepFlags(int count, char *buffer[], flag *Flags);
+bool grepFlags(int count, char *buffer[], flag *Flags, char *pattern_buffer);
 int printer(char *buffer[], flag *Flags);
+void grep_trigger();
+
 
 #endif // SRC_GREP_S21_GREP_H_
