@@ -57,7 +57,7 @@ int printer(char *buffer[], flag *Flags) {
     FILE *file;
     file = fopen(buffer[optind], "r");
     if (file != NULL) {
-        static int str_count = 1;
+        int str_count = 1;
         bool empty_str_count = 0;
         int last = '\n';
         while (!feof(file)) {
