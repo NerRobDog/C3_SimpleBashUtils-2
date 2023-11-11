@@ -36,6 +36,19 @@ void grep_flags(int count, char *buffer[], flag *Flags, char *pattern_buffer) {
             case 'n':
                 Flags -> flag_n = 1;
                 break;
+            case 'h':
+                Flags -> flag_h = 1;
+                break;
+            case 's':
+                Flags -> flag_s = 1;
+                break;
+            case 'f':
+                Flags -> flag_f = 1;
+                snprintf(pattern_buffer, BUFFER_SIZE, "%s", optarg);
+                break;
+            case 'o':
+                Flags -> flag_o = 1;
+                break;
             default:
                 printf("ERROR: invalid arguments\n");
                 break;
@@ -70,12 +83,12 @@ void grep_launcher(flag *Flags, int count, char *buffer[], char *buff) {
 }
 
 void grep_file(flag *Flags, char *pattern, char *file_name) {
-    int cflags = REG_EXTENDED; // расш. регулярные выражения 🏆🥇
+    int cflags = REG_EXTENDED; // расш. регулярные выражения
     regex_t reg; // f
     FILE *file;
     file = fopen(file_name, "r");
     if (Flags -> flag_i) {
-        cflags = REG_ICASE; // не учитывать регистр 🥈
+        cflags = REG_ICASE; // не учитывать регистр
     }
     if (file != NULL) {
         regcomp(&reg, pattern, cflags); // обработка рег. выр.
