@@ -13,7 +13,7 @@ int main(int count, char* buffer[]) {
 
 void grep_flags(int count, char *buffer[], flag *Flags, char *pattern_buffer) {
     int flag_value;
-    char* f_options = "eivcln"; // отредачить
+    char* f_options = "e:ivclnhsf:o";
 
     while ((flag_value = getopt(count, buffer, f_options)) != -1) {
         switch (flag_value) {
@@ -57,7 +57,7 @@ void grep_flags(int count, char *buffer[], flag *Flags, char *pattern_buffer) {
 }
 
 void grep_launcher(flag *Flags, int count, char *buffer[], char *buff) {
-    char pattern[BUFFER_SIZE] = {NULL}; // пустой шаблон
+    char pattern[BUFFER_SIZE] = {0}; // пустой шаблон
     int end_of_pattern = 0;
     if (!Flags -> flag_f && !Flags -> flag_e) { // если нет шаблона
         snprintf(pattern, BUFFER_SIZE, "%s", buffer[optind++]);
