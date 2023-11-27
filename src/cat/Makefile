@@ -12,5 +12,5 @@ clean:
 	rm -rf *.o
 
 test:
-	python3 ../../materials/linters/cpplint.py --extensions=c s21_cat.c s21_cat.h
+	python3 ../../materials/build/scripts/style_test.py --extensions=c s21_cat.c s21_cat.h
 	python3 cat_test.py
