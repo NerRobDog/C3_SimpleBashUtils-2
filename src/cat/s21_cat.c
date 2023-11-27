@@ -73,7 +73,7 @@ int printer(char *buffer[], flag *Flags) {
                 empty_str_count = 0;
             }
             if (last == '\n' && ((Flags -> flag_b && c != '\n') || Flags -> flag_n)) {
-                printf("%6d  ", str_count++);
+                printf("%6d\t", str_count++);
             }
             if (Flags -> flag_t && c == '\t') {
                 printf("^");
