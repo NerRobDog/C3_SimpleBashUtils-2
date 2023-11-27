@@ -1,7 +1,7 @@
 import os
 import sys
 
-test_resolution = 1 + 2  # максимальное количество флагов в тесте
+test_resolution = 1 + 6  # максимальное количество флагов в тесте
 counter_success = 0
 counter_fail = 0
 test_file = "test.txt"
