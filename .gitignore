@@ -51,6 +51,6 @@ Mkfile.old
 dkms.conf
 /src/cat/spizdil.c
 /src/cat/spizdil.h
-/src/cat/Test.txt
+/src/cat/test.txt
 /src/cat/main.c
 /src/cat/func.c

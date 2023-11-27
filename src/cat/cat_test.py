@@ -4,7 +4,7 @@ import sys
 test_resolution = 1 + 11  # максимальное количество флагов в тесте
 counter_success = 0
 counter_fail = 0
-test_file = "bytes.txt"
+test_file = "test.txt"
 sys.stdout = open("log.txt", "w")
 test_flags = ""
 flags = ["-b", "-e", "-n", "-s", "-t", "-v", "-E", "-T", "--number-nonblank", "--number", "--squeeze-blank"]
@@ -44,7 +44,7 @@ for jars_count in range(1, test_resolution):  # start, stop, step
             counter_success += 1
         else:
             counter_fail += 1
-            print('Error')
+            print('ne Nice')
             print('Error with flags {}'.format(test_flags))
         os.system('rm s21_cat.txt cat.txt')
         test_flags = ''
