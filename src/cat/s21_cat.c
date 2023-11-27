@@ -55,7 +55,7 @@ bool catFlags(int count, char *buffer[], flag *Flags) {
 
 int printer(char *buffer[], flag *Flags) {
     FILE *file;
-    file = fopen(buffer[optind], "rb");
+    file = fopen(buffer[optind], "r");
     if (file != NULL) {
         int str_count = 1;
         bool empty_str_count = 0;
