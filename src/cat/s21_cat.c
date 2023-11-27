@@ -70,7 +70,7 @@ int printer(char *buffer[], flag *Flags) {
             } else {
                 empty_str_count = 0;
             }
-            if (last == '\n' && ((Flags -> flag_b && c != '\n') ||Flags -> flag_n)) {
+            if (last == '\n' && ((Flags -> flag_b && c != '\n') || Flags -> flag_n)) {
                 printf("%6d  ", str_count++);
             }
             if (Flags -> flag_t && c == '\t') {
@@ -93,7 +93,6 @@ int printer(char *buffer[], flag *Flags) {
             last = c;
         }
         fclose(file);
-        printf("\n");
     } else {
         printf("ERROR: incorrect file name\n");
         return 1;
