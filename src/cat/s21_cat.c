@@ -62,6 +62,8 @@ int printer(char *buffer[], flag *Flags) {
         int last = '\n';
         while (!feof(file)) {
             int c = fgetc(file); // считывает данные с потока и делает из них строку
+            if (c == EOF)
+                break;
             if (Flags -> flag_s && c == '\n' && last == '\n') {
                 empty_str_count++;
                 if (empty_str_count > 1) {
