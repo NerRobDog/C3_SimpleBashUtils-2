@@ -37,10 +37,8 @@ for jars_count in range(1, test_resolution):  # start, stop, step
         os.system('cat {} {} > cat.txt'.format(test_flags, test_file))
         s21cat = open('s21cat.txt', encoding="utf8", errors='ignore')
         s21cat = s21cat.read()
-        s21cat = s21cat[0:-1]
         cat = open('cat.txt', encoding="utf8", errors='ignore')
         cat = cat.read()
-        cat = cat[0:-1]
         if s21cat == cat:
             counter_success += 1
         else:
