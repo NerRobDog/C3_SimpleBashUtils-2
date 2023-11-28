@@ -105,7 +105,7 @@ void grep_process(flag *Flags, FILE *file, regex_t reg, char *file_name) {
 
     while (fgets(text, BUFFER_SIZE - 1, file) != NULL) { // считывает данные с потока и делает из них строку
         bool match = 0;
-        bool success = regexec(&reg, text, 1, pmatch, 0);  // успешность поиска слова       может не bool
+        bool success = regexec(&reg, text, 1, pmatch, 0);  // успешность поиска слова
 
         if (strchr(text, '\n') == NULL) // порядковый номер (с единицы)
             strcat(text, "\n");
@@ -113,6 +113,8 @@ void grep_process(flag *Flags, FILE *file, regex_t reg, char *file_name) {
             match = 1;
         if (success == REG_NOMATCH && Flags -> flag_v)
             match = 1;
+        if (Flags -> flag_v && Flags -> flag_o) // результата нет, поэтому проброс
+            continue;
         if (match && !Flags -> flag_l && !Flags -> flag_c && Flags -> flag_n)
             printf("%d:", line_number); // нумерует все строки
         if (match && !Flags -> flag_l && !Flags -> flag_c && !Flags -> flag_o)
