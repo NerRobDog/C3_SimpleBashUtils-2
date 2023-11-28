@@ -50,9 +50,9 @@ for jars_count in range(1, test_resolution):  # start, stop, step
         else:
             template = notvalid_template
         os.system('echo "test flags = {0} template = {1}"'.format(test_flags, template))
-        os.system('./s21_grep {flags} {template} {test_files} > s21_grep.txt'.format\
+        os.system("./s21_grep {flags} '{template}' {test_files} > s21_grep.txt".format\
                   (flags=test_flags, template=valid_template, test_files=test_file))
-        os.system('grep {flags} {template} {test_files} > grep.txt'.format\
+        os.system("grep {flags} '{template}' {test_files} > grep.txt".format\
                   (flags=test_flags, template=valid_template, test_files=test_file))
         s21_grep = open('s21_grep.txt', 'r')
         s21_grep = s21_grep.read()
