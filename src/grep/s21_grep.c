@@ -12,8 +12,8 @@ int main(int count, char* buffer[]) {
 }
 
 void grep_flags(int count, char *buffer[], struct flag *flag, char *pattern_buffer) {
-    int flag_value;
-    char* f_options = "e:ivclnhsf:o";
+    int flag_value = 0;
+    const char* f_options = "e:ivclnhsf:o";
 
     while ((flag_value = getopt(count, buffer, f_options)) != -1) {
         switch (flag_value) {
