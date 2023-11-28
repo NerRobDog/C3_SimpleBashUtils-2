@@ -5,23 +5,23 @@
 #include <stdlib.h>
 #include "string.h"
 #include <unistd.h>
-#include <stdbool.h>
+#include <stdint.h>
 #include <getopt.h>
 #include "regex.h"
 
 #define BUFFER_SIZE 4096
 
 typedef struct Flags {
-    bool flag_e;
-    bool flag_i;
-    bool flag_v;
-    bool flag_c;
-    bool flag_l;
-    bool flag_n;
-    bool flag_h;
-    bool flag_s;
-    bool flag_f;
-    bool flag_o;
+    int flag_e;
+    int flag_i;
+    int flag_v;
+    int flag_c;
+    int flag_l;
+    int flag_n;
+    int flag_h;
+    int flag_s;
+    int flag_f;
+    int flag_o;
 } flag;
 
 void grep_flags(int count, char *buffer[], flag *Flags, char *pattern_buffer);
