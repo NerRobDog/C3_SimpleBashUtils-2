@@ -1,7 +1,7 @@
 #include "s21_grep.h"
 
 int main(int count, char* buffer[]) {
-    struct Flags flag = {0, 0, 0, 0, 0, 0,0,0,0,0};
+    struct Flags flag = {0};
     char pattern_buffer[BUFFER_SIZE] = {0};
 
     grep_flags(count, buffer, &flag, pattern_buffer);
@@ -13,7 +13,7 @@ int main(int count, char* buffer[]) {
 
 void grep_flags(int count, char *buffer[], flag *Flags, char *pattern_buffer) {
     int flag_value;
-    char* f_options = "eivclnhsfo"; // убрал именнованные классы
+    char* f_options = "e:ivclnhsf:o";
 
     while ((flag_value = getopt(count, buffer, f_options)) != -1) {
         switch (flag_value) {
@@ -104,8 +104,8 @@ void grep_process(flag *Flags, FILE *file, regex_t reg, char *file_name) {
     int line_matches = 0, line_number = 1;
 
     while (fgets(text, BUFFER_SIZE - 1, file) != NULL) { // считывает данные с потока и делает из них строку
-        bool match = 0;
-        bool success = regexec(&reg, text, 1, pmatch, 0);  // успешность поиска слова       может не bool
+        int match = 0; //bool
+        int success = regexec(&reg, text, 1, pmatch, 0);  // успешность поиска слова       может не bool
 
         if (strchr(text, '\n') == NULL) // порядковый номер (с единицы)
             strcat(text, "\n");
