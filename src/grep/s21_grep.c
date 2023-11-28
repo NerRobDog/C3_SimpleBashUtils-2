@@ -1,7 +1,7 @@
 #include "s21_grep.h"
 
 int main(int count, char* buffer[]) {
-    struct Flags flag = {0, 0, 0, 0, 0, 0};
+    struct Flags flag = {0, 0, 0, 0, 0, 0,0,0,0,0};
     char pattern_buffer[BUFFER_SIZE] = {0};
 
     grep_flags(count, buffer, &flag, pattern_buffer);
@@ -13,7 +13,7 @@ int main(int count, char* buffer[]) {
 
 void grep_flags(int count, char *buffer[], flag *Flags, char *pattern_buffer) {
     int flag_value;
-    char* f_options = "e:ivclnhsf:o";
+    char* f_options = "eivclnhsfo"; // убрал именнованные классы
 
     while ((flag_value = getopt(count, buffer, f_options)) != -1) {
         switch (flag_value) {
