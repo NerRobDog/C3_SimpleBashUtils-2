@@ -72,12 +72,12 @@ void grep_launcher(struct flag *flag, int count, char **buffer, char *buff) {
         int file_count = 0;
         if (count - optind > 1) { // optind - индекс текущего параметра
             file_count = 1;
-            for (int i = optind; i < count; i++) {
-                if (file_count && !flag -> flag_h && !flag -> flag_l) { // если файл есть
-                    printf("%s:", buffer[i]);
-                }
-                grep_file(flag, pattern, buffer[i]);
+        }
+        for (int i = optind; i < count; i++) {
+            if (file_count && !flag -> flag_h && !flag -> flag_l) { // если файл есть
+                   printf("%s:", buffer[i]);
             }
+            grep_file(flag, pattern, buffer[i]);
         }
     }
 }
