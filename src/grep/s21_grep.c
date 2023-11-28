@@ -1,7 +1,7 @@
 #include "s21_grep.h"
 
 int main(int count, char* buffer[]) {
-    struct Flags flag = {0};
+    struct flag flag = {0};
     char pattern_buffer[BUFFER_SIZE] = {0};
 
     grep_flags(count, buffer, &flag, pattern_buffer);
@@ -11,43 +11,43 @@ int main(int count, char* buffer[]) {
     return 0;
 }
 
-void grep_flags(int count, char *buffer[], flag *Flags, char *pattern_buffer) {
+void grep_flags(int count, char *buffer[], struct flag *flag, char *pattern_buffer) {
     int flag_value;
     char* f_options = "e:ivclnhsf:o";
 
     while ((flag_value = getopt(count, buffer, f_options)) != -1) {
         switch (flag_value) {
             case 'e':
-                Flags -> flag_e = 1;
+                flag -> flag_e = 1;
                 snprintf(pattern_buffer, BUFFER_SIZE, "%s", optarg);  // getopt(3) external variables
                 break;
             case 'i':
-                Flags -> flag_i = 1;
+                flag -> flag_i = 1;
                 break;
             case 'v':
-                Flags -> flag_v = 1;
+                flag -> flag_v = 1;
                 break;
             case 'c':
-                Flags -> flag_c = 1;
+                flag -> flag_c = 1;
                 break;
             case 'l':
-                Flags -> flag_l = 1;
+                flag -> flag_l = 1;
                 break;
             case 'n':
-                Flags -> flag_n = 1;
+                flag -> flag_n = 1;
                 break;
             case 'h':
-                Flags -> flag_h = 1;
+                flag -> flag_h = 1;
                 break;
             case 's':
-                Flags -> flag_s = 1;
+                flag -> flag_s = 1;
                 break;
             case 'f':
-                Flags -> flag_f = 1;
+                flag -> flag_f = 1;
                 snprintf(pattern_buffer, BUFFER_SIZE, "%s", optarg);
                 break;
             case 'o':
-                Flags -> flag_o = 1;
+                flag -> flag_o = 1;
                 break;
             default:
                 printf("ERROR: invalid arguments\n");
@@ -56,16 +56,16 @@ void grep_flags(int count, char *buffer[], flag *Flags, char *pattern_buffer) {
     }
 }
 
-void grep_launcher(flag *Flags, int count, char *buffer[], char *buff) {
+void grep_launcher(struct flag *flag, int count, char *buffer[], char *buff) {
     char pattern[BUFFER_SIZE] = {0}; // пустой шаблон
     int end_of_pattern = 0;
-    if (!Flags -> flag_f && !Flags -> flag_e) { // если нет шаблона
+    if (!flag -> flag_f && !flag -> flag_e) { // если нет шаблона
         snprintf(pattern, BUFFER_SIZE, "%s", buffer[optind++]);
     }
-    if (Flags -> flag_f) { // регулярки (press F)
+    if (flag -> flag_f) { // регулярки (press F)
         end_of_pattern = grep_f_flag(pattern, buff); // вызов функции
     }
-    if (!Flags -> flag_f && Flags -> flag_e) { // шаблон без регулярки
+    if (!flag -> flag_f && flag -> flag_e) { // шаблон без регулярки
         snprintf(pattern, BUFFER_SIZE, "%s", buff);
     }
     if (end_of_pattern != -1) { //если без ошибок
@@ -73,32 +73,32 @@ void grep_launcher(flag *Flags, int count, char *buffer[], char *buff) {
         if (count - optind > 1) { // optind - индекс текущего параметра
             file_count = 1;
             for (int i = optind; i < count; i++) {
-                if (file_count && !Flags -> flag_h && !Flags -> flag_l) { // если файл есть
+                if (file_count && !flag -> flag_h && !flag -> flag_l) { // если файл есть
                     printf("%s:", buffer[i]);
                 }
-                grep_file(Flags, pattern, buffer[i]);
+                grep_file(flag, pattern, buffer[i]);
             }
         }
     }
 }
 
-void grep_file(flag *Flags, char *pattern, char *file_name) {
+void grep_file(struct flag *flag, char *pattern, char *file_name) {
     int cflags = REG_EXTENDED; // расш. регулярные выражения
     regex_t reg; // f
     FILE *file;
     file = fopen(file_name, "r");
-    if (Flags -> flag_i) {
+    if (flag -> flag_i) {
         cflags = REG_ICASE; // не учитывать регистр
     }
     if (file != NULL) {
         regcomp(&reg, pattern, cflags); // обработка рег. выр.
-        grep_process(Flags, file, reg, file_name);
+        grep_process(flag, file, reg, file_name);
         regfree(&reg); // высвобождение
         fclose(file);
     }
 }
 
-void grep_process(flag *Flags, FILE *file, regex_t reg, char *file_name) {
+void grep_process(struct flag *flag, FILE *file, regex_t reg, char *file_name) {
     char text[BUFFER_SIZE] = {0};
     regmatch_t pmatch[1];
     int line_matches = 0, line_number = 1;
@@ -109,15 +109,15 @@ void grep_process(flag *Flags, FILE *file, regex_t reg, char *file_name) {
 
         if (strchr(text, '\n') == NULL) // порядковый номер (с единицы)
             strcat(text, "\n");
-        if (success == 0 && !Flags -> flag_v)
+        if (success == 0 && !flag -> flag_v)
             match = 1;
-        if (success == REG_NOMATCH && Flags -> flag_v)
+        if (success == REG_NOMATCH && flag -> flag_v)
             match = 1;
-        if (match && !Flags -> flag_l && !Flags -> flag_c && Flags -> flag_n)
+        if (match && !flag -> flag_l && !flag -> flag_c && flag -> flag_n)
             printf("%d:", line_number); // нумерует все строки
-        if (match && !Flags -> flag_l && !Flags -> flag_c && !Flags -> flag_o)
+        if (match && !flag -> flag_l && !flag -> flag_c && !flag -> flag_o)
             printf("%s", text);  // просто выводит совпадение
-        if (match && Flags -> flag_o) {
+        if (match && flag -> flag_o) {
             for (int i = pmatch[0].rm_so; i < pmatch[0].rm_eo; i++) { // выводит нужный кусок строки (совпадение)
                 printf("%c", text[i]);
             }
@@ -126,9 +126,9 @@ void grep_process(flag *Flags, FILE *file, regex_t reg, char *file_name) {
         line_matches += (int)match;
         line_number++;
     }
-    if (Flags -> flag_l && line_matches > 0)
+    if (flag -> flag_l && line_matches > 0)
         printf("%s\n", file_name);
-    if (Flags -> flag_c && !Flags -> flag_l)
+    if (flag -> flag_c && !flag -> flag_l)
         printf("%d\n", line_matches);
 }
 
