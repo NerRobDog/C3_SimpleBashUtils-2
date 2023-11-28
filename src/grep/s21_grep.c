@@ -1,6 +1,6 @@
 #include "s21_grep.h"
 
-int main(int count, char* buffer[]) {
+int main(int count, char *buffer[]) {
     struct flag flag = {0};
     char pattern_buffer[BUFFER_SIZE] = {0};
 
@@ -11,7 +11,7 @@ int main(int count, char* buffer[]) {
     return 0;
 }
 
-void grep_flags(int count, char *buffer[], struct flag *flag, char *pattern_buffer) {
+void grep_flags(int count, char **buffer, struct flag *flag, char *pattern_buffer) {
     int flag_value = 0;
     const char* f_options = "e:ivclnhsf:o";
 
@@ -56,7 +56,7 @@ void grep_flags(int count, char *buffer[], struct flag *flag, char *pattern_buff
     }
 }
 
-void grep_launcher(struct flag *flag, int count, char *buffer[], char *buff) {
+void grep_launcher(struct flag *flag, int count, char **buffer, char *buff) {
     char pattern[BUFFER_SIZE] = {0}; // пустой шаблон
     int end_of_pattern = 0;
     if (!flag -> flag_f && !flag -> flag_e) { // если нет шаблона
