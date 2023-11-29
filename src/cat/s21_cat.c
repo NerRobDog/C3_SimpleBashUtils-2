@@ -66,15 +66,12 @@ int printer(char *buffer[], flag *Flags) {
                 break;
             if (Flags -> flag_s && c == '\n' && last == '\n') {
                 empty_str_count++;
-                if (empty_str_count > 1) {
+                if (empty_str_count > 1)
                     continue;
-                }
-            } else {
+            } else
                 empty_str_count = 0;
-            }
-            if (last == '\n' && ((Flags -> flag_b && c != '\n') || Flags -> flag_n)) {
+            if (last == '\n' && ((Flags -> flag_b && c != '\n') || Flags -> flag_n))
                 printf("%6d\t", str_count++);
-            }
             if (Flags -> flag_t && c == '\t') {
                 printf("^");
                 c = 'I';

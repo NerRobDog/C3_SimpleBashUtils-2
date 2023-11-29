@@ -5,15 +5,14 @@ int main(int count, char* buffer[]) {
     char pattern_buffer[BUFFER_SIZE] = {0};
 
     grep_flags(count, buffer, &flag, pattern_buffer);
-    if (count >= 3) {
+    if (count >= 3)
         grep_launcher(&flag, count, buffer, pattern_buffer);
-    }
     return 0;
 }
 
 void grep_flags(int count, char *buffer[], flag *Flags, char *pattern_buffer) {
     int flag_value;
-    char* f_options = "e:ivclnhsf:o"; // убрал именнованные классы
+    char* f_options = "e:ivclnhsf:o";
 
     while ((flag_value = getopt(count, buffer, f_options)) != -1) {
         switch (flag_value) {
@@ -59,24 +58,20 @@ void grep_flags(int count, char *buffer[], flag *Flags, char *pattern_buffer) {
 void grep_launcher(flag *Flags, int count, char *buffer[], char *buff) {
     char pattern[BUFFER_SIZE] = {0}; // пустой шаблон
     int end_of_pattern = 0;
-    if (!Flags -> flag_f && !Flags -> flag_e) { // если нет шаблона
+    if (!Flags -> flag_f && !Flags -> flag_e)  // если нет шаблона
         snprintf(pattern, BUFFER_SIZE, "%s", buffer[optind++]);
-    }
-    if (Flags -> flag_f) { // регулярки (press F)
-        end_of_pattern = grep_f_flag(pattern, buff); // вызов функции
-    }
-    if (!Flags -> flag_f && Flags -> flag_e) { // шаблон без регулярки
+    if (Flags -> flag_f)  // регулярки (press F)
+        end_of_pattern = grep_f_flag(pattern, buff);
+    if (!Flags -> flag_f && Flags -> flag_e)  // шаблон без регулярки
         snprintf(pattern, BUFFER_SIZE, "%s", buff);
-    }
-    if (end_of_pattern != -1) { //если без ошибок
+    if (end_of_pattern != -1) {  //если без ошибок
         int file_count = 0;
-        if (count - optind > 1) { // optind - индекс текущего параметра
+        if (count - optind > 1) {  // optind - индекс текущего параметра
             file_count = 1;
         }
         for (int i = optind; i < count; i++) {
-            if (file_count && !Flags -> flag_h && !Flags -> flag_l) { // если файл есть
+            if (file_count && !Flags -> flag_h && !Flags -> flag_l)  // если файл есть
                 printf("%s:", buffer[i]);
-            }
             grep_file(Flags, pattern, buffer[i]);
         }
     }
@@ -87,9 +82,8 @@ void grep_file(flag *Flags, char *pattern, char *file_name) {
     regex_t reg; // f
     FILE *file;
     file = fopen(file_name, "r");
-    if (Flags -> flag_i) {
-        cflags = REG_ICASE; // не учитывать регистр
-    }
+    if (Flags -> flag_i)
+        cflags = REG_ICASE;  // не учитывать регистр
     if (file != NULL) {
         regcomp(&reg, pattern, cflags); // обработка рег. выр.
         grep_process(Flags, file, reg, file_name);
@@ -136,8 +130,9 @@ void grep_process(flag *Flags, FILE *file, regex_t reg, char *file_name) {
 
 int grep_f_flag(char *pattern, char *file_name) {
     FILE *file;
-    file = fopen(file_name, "r");
     int i = 0;
+
+    file = fopen(file_name, "r");
     if (file != NULL) {
         int ch;
         while ((ch = fgetc(file)) != EOF) {
@@ -147,7 +142,7 @@ int grep_f_flag(char *pattern, char *file_name) {
                 pattern[i++] = ch;
         }
     } else {
-        printf("error\n");
+        printf("Error\n");
         i = -1;
     }
     if (pattern[i - 1] == '|')
