@@ -6,7 +6,10 @@ s21_grep:
 	make run
 
 run:
-	./s21_grep -n 'abobus' Test.txt
+	./s21_grep
 
 clean:
 	rm -rf *.o
+
+test:
+	python3 grep_test.py

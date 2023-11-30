@@ -115,7 +115,7 @@ void grep_process(flag *Flags, FILE *file, regex_t reg, char *file_name) {
             printf("%s", text);  // просто выводит совпадение
         if (match && Flags -> flag_o) {
             for (int i = pmatch[0].rm_so; i < pmatch[0].rm_eo; i++) { // выводит нужный кусок строки (совпадение)
-                printf("%c", text[i]);
+                printf("%c", text[i]); // принтит само совпадение побуквенно
             }
             printf("\n");
         }
