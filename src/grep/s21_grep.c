@@ -94,11 +94,9 @@ void grep_process(flag *Flags, FILE *file, regex_t reg, char *file_name) {
     char text[BUFFER_SIZE] = {0};
     regmatch_t pmatch[1];
     int line_matches = 0, line_number = 1;
-
     while (fgets(text, BUFFER_SIZE - 1, file) != NULL) {  // считывает данные с потока и делает из них строку
         bool match = 0;
         bool success = regexec(&reg, text, 1, pmatch, 0);  // успешность поиска слова
-
         if (strchr(text, '\n') == NULL)  // порядковый номер (с единицы)
             strcat(text, "\n");
         if (success == 0 && !Flags->flag_v) match = 1;
@@ -112,7 +110,6 @@ void grep_process(flag *Flags, FILE *file, regex_t reg, char *file_name) {
         if (match && Flags->flag_o) {
             regmatch_t pmatch[2];  // увеличиваем количество pmatch для обработки всех совпадений
             int offset = 0;
-
             while (regexec(&reg, text + offset, 2, pmatch, 0) == 0) {
                 if (pmatch[0].rm_so == -1) {
                     break;  // если больше совпадений нет, выходим из цикла
@@ -120,17 +117,14 @@ void grep_process(flag *Flags, FILE *file, regex_t reg, char *file_name) {
                 if (Flags->flag_n) {
                     printf("%d:", line_number);
                 }
-
                 for (int i = pmatch[0].rm_so; i < pmatch[0].rm_eo; i++) {
                     printf("%c", text[offset + i]);
-
                 }
                 printf("\n");
 
                 offset += pmatch[0].rm_eo;
             }
         }
-
         line_matches += (int)match;
         line_number++;
     }

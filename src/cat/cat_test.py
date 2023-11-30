@@ -16,10 +16,10 @@ def combinator_duplicator(flags, jars_count):  # def - тип данных не 
     yield tuple(flags[i] for i in index)  # yield - заполняет весь массив index элементом i
     while True:
         for j in reversed(range(jars_count)):  # j - содержимое банки | jars_count - номер банки
-            if index[j] != pool_len - 1:  #если индекс не дошел до конца массива
+            if index[j] != pool_len - 1:  # если индекс не дошел до конца массива
                 break
         else:
-            return #завершает работу функции когда цикл закончен
+            return  # завершает работу функции когда цикл закончен
         index[j:] = [index[j] + 1] * (jars_count - j)
         yield tuple(flags[k] for k in index)
 
