@@ -8,12 +8,12 @@
 #include <unistd.h>
 
 typedef struct Flags {
-    bool flag_b;
-    bool flag_e;
-    bool flag_n;
-    bool flag_s;
-    bool flag_t;
-    bool flag_v;
+  bool flag_b;
+  bool flag_e;
+  bool flag_n;
+  bool flag_s;
+  bool flag_t;
+  bool flag_v;
 } flag;
 
 struct option options[] = {
