@@ -36,7 +36,7 @@ for jars_count in range(1, test_resolution):  # start, stop, step
         for j in reversed(range(jars_count)):  # приносит по очереди банки
             test_flag = str(jars[i][j - 1])
             test_flags += test_flag
-        test_flags = '-' + test_flags
+        test_flags = '' + test_flags
         template = 'Dictum'
         os.system('echo "test flags = {flags} template = {template}"'.format\
                       (flags=test_flags, template=template))

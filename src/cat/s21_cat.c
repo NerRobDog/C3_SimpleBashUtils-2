@@ -54,11 +54,12 @@ bool catFlags(int count, char *buffer[], flag *Flags) {
 }
 
 int printer(char *buffer[], flag *Flags) {
+    int exitcode = 1;
     FILE *file;
     file = fopen(buffer[optind], "r");
     if (file != NULL) {
         int str_count = 1;
-        bool empty_str_count = 0;
+        int empty_str_count = 0;
         int last = '\n';
         while (!feof(file)) {
             int c = fgetc(file); // считывает данные с потока и делает из них строку
@@ -92,8 +93,10 @@ int printer(char *buffer[], flag *Flags) {
             last = c;
         }
         fclose(file);
+        exitcode = 0;
     } else {
         printf("ERROR: incorrect file name\n");
-        return 1;
+        exitcode = 1;
     }
+    return exitcode;
 }

@@ -6,7 +6,7 @@ counter_success = 0
 counter_fail = 0
 test_file = "test.txt"
 test_flags = ""
-flags = ["-b", "-e", "-n", "-s", "-t", "-v", "-E", "-T", "--number-nonblank", "--number", "--squeeze-blank"]
+flags = ["-b", "-e", "-n", "-s", "-t", "-v", ]#"-E", "-T", "--number-nonblank", "--number", "--squeeze-blank"]
 
 
 def combinator_duplicator(flags, jars_count):  # def - тип данных не имеет значения
