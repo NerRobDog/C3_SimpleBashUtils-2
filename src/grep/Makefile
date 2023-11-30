@@ -1,4 +1,4 @@
-FLAGS: c11 -Wall -Werror -Wextra
+FLAGS = -std=c11 -Wall -Werror -Wextra
 
 all:
 	make s21_grep
