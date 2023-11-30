@@ -11,7 +11,7 @@ run:
 	./s21_grep
 
 clean:
-	rm -rf *.o s21_grep
+	rm -rf *.o s21_grep *grep.txt
 
 test:
 	python3 grep_test.py

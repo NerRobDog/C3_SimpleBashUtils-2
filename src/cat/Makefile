@@ -11,7 +11,7 @@ run:
 	./s21_cat
 
 clean:
-	rm -rf *.o
+	rm -rf *.o s21_cat *cat.txt
 
 test:
 	python3 cat_test.py
